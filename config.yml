@@ -1,30 +1,23 @@
 trigger:
   - main
- 
+
 pool:
   vmImage: 'ubuntu-latest'
- 
+
 steps:
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
 - task: CopyFilesOverSSH@0
   displayName: 'Securely copy files to the remote machine'
   inputs:
-    sshEndpoint: 'techpathinternalserver'
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    targetFolder: '/var/www/dev.techpath.pro/public_html'
+    sshEndpoint: 'techpathlocalserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/path/to/html/files'
+    targetFolder: '/var/www/farooq.techpath.pro/public_html'
+
 - task: SSH@0
   inputs:
-    sshEndpoint: 'techpathinternalserver'
+    sshEndpoint: 'techpathlocalserver'
     runOptions: 'commands'
     commands: |
       echo "Starting";
-      cd /var/www/dev.techpath.pro/public_html/ && unzip -o $(Build.BuildId).zip
-      source /var/www/dev.techpath.pro/public_html/venv/bin/activate && pip3 install -r /var/www/dev.techpath.pro/public_html/s/requirements.txt;
-      rm /var/www/dev.techpath.pro/public_html/$(Build.BuildId).zip
+      # Additional deployment steps if needed
+      echo "Deploying index.html file completed."
     readyTimeout: '20000'
