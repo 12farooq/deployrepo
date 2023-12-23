@@ -1,23 +1,28 @@
-trigger:
-  - main
+name: ssh-pipeline
+ on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: GitHub 
+     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: CopyFilesOverSSH@0
-  displayName: 'Securely copy files to the remote machine'
-  inputs:
-    sshEndpoint: 'techpathlocalserver'
-    sourceFolder: '$(System.DefaultWorkingDirectory)/path/to/html/files'
-    targetFolder: '/var/www/dev.techpath.pro/public_html'
-
-- task: SSH@0
-  inputs:
-    sshEndpoint: 'techpathinternalserver'
-    runOptions: 'commands'
-    commands: |
-      echo "Starting";
-      # Additional deployment steps if needed
-      echo "Deploying index.html file completed."
-    readyTimeout: '20000'
+      - name: SSH Deploy
+        uses: cross-the-world/ssh-pipeline@v1.2.0
+        with:
+          host: 
+          port: # optional, default is 22
+          user: 
+          pass:  # optional
+          connect_timeout: 30 # optional, default is 30s
+          script: |
+            # Your deployment script or commands go here
+            # For example:
+            echo "Hello, deploying your application!"
+            cd /github.com/12farooq/deploymentrepo.git
+            git pull origin main
+            mkdir -p /home/github/test/test1
+            mkdir -p /home/github/test/test2
