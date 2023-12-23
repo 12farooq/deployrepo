@@ -10,11 +10,11 @@ steps:
   inputs:
     sshEndpoint: 'techpathlocalserver'
     sourceFolder: '$(System.DefaultWorkingDirectory)/path/to/html/files'
-    targetFolder: '/var/www/farooq.techpath.pro/public_html'
+    targetFolder: '/var/www/dev.techpath.pro/public_html'
 
 - task: SSH@0
   inputs:
-    sshEndpoint: 'techpathlocalserver'
+    sshEndpoint: 'techpathinternalserver'
     runOptions: 'commands'
     commands: |
       echo "Starting";
