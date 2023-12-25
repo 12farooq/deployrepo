@@ -1,22 +1,25 @@
 name: ssh-pipeline
- on:
+
+on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
-    runs-on: GitHub 
-     steps:
+    runs-on: ubuntu-latest
+    
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: SSH Deploy
         uses: cross-the-world/ssh-pipeline@v1.2.0
-        with:
-          host: 
-          port: # optional, default is 22
-          user: 
-          pass:  # optional
+        with: 
+          host: "" 
+          port: 22 # optional, default is 22
+          user: ""
+          pass: "" # optional
           connect_timeout: 30 # optional, default is 30s
           script: |
             # Your deployment script or commands go here
