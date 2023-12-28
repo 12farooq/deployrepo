@@ -18,13 +18,3 @@ steps:
     sshEndpoint: 'techpathinternalserver'
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
     targetFolder: '/var/www/dev.techpath.pro/public_html'
-- task: SSH@0
-  inputs:
-    sshEndpoint: 'techpathinternalserver'
-    runOptions: 'commands'
-    commands: |
-      echo "Starting";
-      cd /var/www/dev.techpath.pro/public_html/ && unzip -o $(Build.BuildId).zip
-      source /var/www/dev.techpath.pro/public_html/venv/bin/activate && pip3 install -r /var/www/dev.techpath.pro/public_html/s/requirements.txt;
-      rm /var/www/dev.techpath.pro/public_html/$(Build.BuildId).zip
-    readyTimeout: '20000'
