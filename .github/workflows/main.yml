@@ -1,18 +1,24 @@
 trigger:
   - main
+
 pool:
   vmImage: 'ubuntu-latest'
+
 steps:
  - task: ArchiveFiles@2
    inputs:
-    rootFolderOrFile: '/volume1/sharedemp'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '/build.zip'
-    replaceExistingArchive: true
+     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+     includeRootFolder: true
+     archiveType: 'zip'
+     archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'
+     replaceExistingArchive: true
+
  - task: CopyFilesOverSSH@0
-   displayName: 'Securely copy files to the remote machine'
+    displayName: 'Securely copy files to the remote machine'
    inputs:
-   sshEndpoint: '192.168.1.3'
-   sourceFolder: 'Build.ArtifactStagingDirectory'  # Update this line to the correct source folder
-   targetFolder: 'volume1/sharedemp'
+      sshEndpoint: '192.168.1.3'
+      sourceFolder: '$(Build.ArtifactStagingDirectory)'  # Use the artifact staging directory as the source
+      contents: '**'  # Include all contents recursively
+      targetFolder: '/volume1/sharedemp'  # Update this with the path on your NAS server
+      cleanTargetFolder: false  # Set to true if you want to clean the target folder before copying
+      failOnEmptySource: true
