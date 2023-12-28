@@ -34,18 +34,9 @@ jobs:
             mkdir -p /home/github/test/test2
 
             # Upload the zip file
-            scp -P 22 $GITHUB_WORKSPACE/deployment.zip techpathadmin@"192.168.1.3":/volume1/sharedemp
+            scp -P 22 $GITHUB_WORKSPACE/deployment.zip techpathadmin@192.168.1.3:/volume1/sharedemp
 
             # Unzip the file
-            ssh -p 22 techpathadmin@"192.168.1.3" "cd /volume1/sharedemp && unzip -o deployment.zip"
+            ssh -p 22 techpathadmin@192.168.1.3 cd /volume1/sharedemp && unzip -o deployment.zip
 
             # Add any additional deployment steps as needed
-
-- task: CopyFilesOverSSH@0
-  displayName: 'Securely copy files to the remote machine'
-  inputs:
-    sshEndpoint: '192.168.1.3'
-    sourceFolder: ''  # Update this line to the correct source folder
-    targetFolder: '/volume1/sharedemp'
-
-    targetFolder: '/volume1/sharedemp'
