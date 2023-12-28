@@ -18,4 +18,4 @@ steps:
     contents: '**'  # Include all contents recursively
     targetFolder: '/volume1/sharedemp'  # Update this with the path on your NAS server
     cleanTargetFolder: false  # Set to true if you want to clean the target folder before copying
-     failOnEmptySource: "true"
+    failOnEmptySource: true
