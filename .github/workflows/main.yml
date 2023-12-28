@@ -33,4 +33,3 @@ jobs:
             unzip -o /volume1/sharedemp/deployment.zip -d /volume1/sharedemp
             mkdir -p /home/github/test/test1
             mkdir -p /home/github/test/test2
-          zip: true
