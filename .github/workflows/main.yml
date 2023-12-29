@@ -1,18 +1,25 @@
-trigger:
-  - main
-pool:
-  vmImage: 'ubuntu-latest'  
-steps:
-- task: "ArchiveFiles@2"
-  inputs:
-    rootFolderOrFile: '$(github.workspace)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-- task: CopyFilesOverSSH@0
-  displayName: 'Securely copy files to the remote machine'
-  inputs:
-    sshEndpoint: '192.168.1.3'
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    targetFolder: '/volume1/sharedemp/'
+name: Archive
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Archive Repository
+      run: |
+        zip -r ${{ github.workspace }}/archive.zip .
+      working-directory: ${{ github.workspace }}
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ${{ github.workspace }}/archive.zip
