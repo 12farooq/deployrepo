@@ -1,8 +1,34 @@
-- name: Upload Artifact
+name: Archive
+ 
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+ 
+    - name: Archive Repository
+      run: |
+        zip -r ${{ github.workspace }}/archive.zip .
+      working-directory: ${{ github.workspace }}
+ 
+    - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
         path: ${{ github.workspace }}/archive.zip
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: my-artifact
+       path: ${{ github.workspace }}/archive.zip
 
     - name: Upload to NAS
       uses: appleboy/scp-action@master
