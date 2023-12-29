@@ -1,29 +1,23 @@
 name: Zip and Copy to NAS
-
 on:
   push:
     branches:
       - main  # Adjust the branch as needed
-
 jobs:
   zip_and_copy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-
     - name: Zip Repository
       run: |
         zip -r code.zip .
       working-directory: github.workspace 
-
     - name: Upload Zip Artifact
       uses: actions/upload-artifact@v2
       with:
         name: code
         path: code.zip
-
     - name: Copy to NAS
       uses: appleboy/scp-action@master
       with:
