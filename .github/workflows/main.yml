@@ -1,14 +1,5 @@
-- name: Deploy to NAS
-  uses: appleboy/scp-action@master
-  with:
-    host: ${{ 192.168.1.3 }}
-    username: ${{ techpathadmin }}
-    password: ${{ newLappy@29092022 }}
-    source: ${{ github.workspace }}/archive.zip
-    target: '/path/on/nas/server'
-    script: |
-      echo "Debug Information:"
-      echo "Host: ${{ 192.168.1.3 }}"
-      echo "Username: ${{ techpathadmin }}"
-      echo "Source: ${{ github.workspace }}/archive.zip"
-      echo "Target: '/volume1/sharedemp'"
+- name: Debug Info
+  run: |
+    echo "Host: ${{ secrets.SSH_HOST }}"
+    echo "Username: ${{ secrets.SSH_USERNAME }}"
+    echo "Key: ${{ secrets.SSH_PRIVATE_KEY }}"
