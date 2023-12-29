@@ -1,29 +1,14 @@
-name: Upload to SSH Server
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  upload_to_ssh:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Archive Repository
-      run: |
-        zip -r ${{ github.workspace }}/archive.zip .
-      working-directory: ${{ github.workspace }}
-
-    - name: Upload to SSH Server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ 192.168.1.3 }}
-        username: ${{ techpathadmin }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        password: ${{ newLappy@29092022 }}
-        source: ${{ github.workspace }}/archive.zip
-        target: '/volume1/sharedemp'
+- name: Deploy to NAS
+  uses: appleboy/scp-action@master
+  with:
+    host: ${{ 192.168.1.3 }}
+    username: ${{ techpathadmin }}
+    password: ${{ newLappy@29092022 }}
+    source: ${{ github.workspace }}/archive.zip
+    target: '/path/on/nas/server'
+    script: |
+      echo "Debug Information:"
+      echo "Host: ${{ 192.168.1.3 }}"
+      echo "Username: ${{ techpathadmin }}"
+      echo "Source: ${{ github.workspace }}/archive.zip"
+      echo "Target: '/volume1/sharedemp'"
