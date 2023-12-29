@@ -1,13 +1,11 @@
 trigger:
   - main
- 
 pool:
   vmImage: 'ubuntu-latest'
- 
 steps:
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(github.workspace)'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
@@ -15,6 +13,6 @@ steps:
 - task: CopyFilesOverSSH@0
   displayName: 'Securely copy files to the remote machine'
   inputs:
-    sshEndpoint: '192.168.1.3'
+    sshEndpoint: 
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
     targetFolder: '/volume1/sharedemp'
