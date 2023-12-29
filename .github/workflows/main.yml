@@ -10,27 +10,21 @@ jobs:
   steps:
   - checkout: self
 
-  - script: |
+- script: |                                                                     
       sudo apt-get install zip
-      zip -r repo.zip <path_to_your_repo>
-    displayName: 'Compress Repo'
+      zip -r repo.zip https://github.com/12farooq/deployrepo.git
+      displayName: 'Compress Repo'
 
-  - publish: $(System.DefaultWorkingDirectory)/repo.zip
-    artifact: drop
-    displayName: 'Publish Artifact'
-
+- publish: $(System.DefaultWorkingDirectory)/repo.zip
+  artifact: drop
+displayName: 'Publish Artifact'
+  
 - job: UploadToNAS
-  displayName: 'Upload to NAS'
-  dependsOn: CompressAndUpload
-  pool:
-    vmImage: 'ubuntu-latest'
+    displayName: 'Upload to NAS'
+    dependsOn: CompressAndUpload
+   pool:
+     vmImage: 'ubuntu-latest'
   steps:
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**/*.zip'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
   - task: SCP@0
     inputs:
       host: '192.168.1.3'
