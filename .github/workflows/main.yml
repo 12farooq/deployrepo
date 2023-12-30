@@ -1,4 +1,4 @@
-name: Zip and Deploy
+name: Archive and Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  archive_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,14 +15,20 @@ jobs:
 
       - name: Archive Repository
         run: |
-          zip -r ${{ github.workspace }}/my_repo.zip .
+          zip -r ${{ github.workspace }}/archive.zip .
         working-directory: ${{ github.workspace }}
 
-      - name: Copy Zip to Local Server
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/archive.zip
+
+      - name: Deploy to Local Server
         uses: appleboy/scp-action@master
         with:
           host: 192.168.1.3
           username: techpathadmin
           password: newLappy@29092022
-          local_file: my_repo.zip
+          local_file: ${{ github.workspace }}/archive.zip
           remote_path: /volume1/sharedemp
