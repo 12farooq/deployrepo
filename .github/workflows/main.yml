@@ -27,8 +27,8 @@ jobs:
       - name: Deploy to Local Server
         uses: appleboy/scp-action@master
         with:
-          host: '202.176.1.150'
-          username: 'server'
-          password: 'sanjeev123'
-          local_file: ${{ github.workspace }}/archive.zip
-          remote_path: /media/server/data-5121/layer
+         host: '202.176.1.150'
+         username: 'server'
+         password: 'sanjeev123'
+         local_file: ${{ github.workspace }}/archive.zip
+         remote_path: /media/server/data-5121/laye
