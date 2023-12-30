@@ -1,4 +1,4 @@
-name: Deploy to NAS
+name: Deploy to 192.168.1.3
 
 on:
   push:
@@ -17,7 +17,8 @@ jobs:
         run: |
           zip -r deployrepo.zip .
 
-      - name: Deploy to NAS
+      - name: Deploy to 192.168.1.3
+
         uses: appleboy/scp-action@master
         with:
           host: 192.168.1.3
