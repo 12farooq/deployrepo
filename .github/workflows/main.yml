@@ -1,4 +1,4 @@
-name: Archive
+name: Archive and upload by ssh
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  archive:
+  archive_and_upload_by_ssh:
     runs-on: ubuntu-latest
 
     steps:
