@@ -27,9 +27,9 @@ jobs:
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
-          host: '192.168.1.10'
-          username: ''
-          password: ''
+          host: '202.176.1.150'
+          username: 'server'
+          password: 'sanjeev123'
           script: |
             mkdir -p /volume1/sharedemp
-            unzip -o ~/archive.zip -d /volume1/sharedemp
+            unzip -o ~/archive.zip -d /media/server/data-5121/laye
