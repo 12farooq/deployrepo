@@ -31,5 +31,5 @@ jobs:
           username: 'server'
           password: 'sanjeev123'
           script: |
-            mkdir -p /volume1/sharedemp
+            mkdir -p /media/server/data-5121/laye
             unzip -o ~/archive.zip -d /media/server/data-5121/laye
