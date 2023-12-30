@@ -25,10 +25,11 @@ jobs:
           path: ${{ github.workspace }}/archive.zip
 
       - name: Deploy to Server
-        uses: appleboy/drone-scp@v1
+        uses: appleboy/ssh-action@master
         with:
           host: '192.168.1.10'
           username: ''
           password: ''
-          target: ''
-          source: ${{ github.workspace }}/archive.zip
+          script: |
+            mkdir -p /volume1/sharedemp
+            unzip -o ~/archive.zip -d /volume1/sharedemp
