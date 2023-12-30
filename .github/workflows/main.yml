@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to Local Server
         uses: appleboy/scp-action@master
         with:
-          host: 'hub.techpath.pro'
+          host: '192.168.1.10'
           username: ''
           password: ''
           local_file: ${{ github.workspace }}/archive.zip
