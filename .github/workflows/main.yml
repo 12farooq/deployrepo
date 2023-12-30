@@ -32,4 +32,5 @@ jobs:
           password: 'sanjeev123'
           script: |
             mkdir -p /media/server/data-5121/laye
-            unzip -o ~/archive.zip -d /media/server/data-5121/laye
+            unzip -o $GITHUB_WORKSPACE/archive.zip -d /media/server/data-5121/laye
+
