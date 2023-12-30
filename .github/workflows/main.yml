@@ -1,4 +1,4 @@
-name: Archive and upload on server
+name: Deploy to Local Server
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  archive_and_upload_by_ssh:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,20 +15,11 @@ jobs:
 
       - name: Archive Repository
         run: |
-          zip -r ${{ github.workspace }}/archive.zip .
+          zip -r my_repo.zip .
         working-directory: ${{ github.workspace }}
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}/archive.zip
-
-      - name: Deploy on server
-        uses: appleboy/scp-action@main
-        with:
-          host: '192.168.1.3'
-          username: 'techpathadmin'
-          password: 'newLappy@29092022'
-          local_file: ${{ github.workspace }}/archive.zip
-          remote_path: /volume1/sharedemp
+      - name: Deploy to Local Server
+        run: |
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i "" my_repo.zip techpathadmin@192.168.1.3:/volume1/sharedemp
+        env:
+          SSH_PRIVATE_KEY_PATH: ""
