@@ -23,14 +23,3 @@ jobs:
         with:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
-
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: '202.176.1.150'
-          username: 'server'
-          password: 'sanjeev123'
-          script: |
-            mkdir -p /media/server/data-5121/laye
-            unzip -o $GITHUB_WORKSPACE/archive.zip -d /media/server/data-5121/laye
-
