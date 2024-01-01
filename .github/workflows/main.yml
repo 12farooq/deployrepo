@@ -15,7 +15,7 @@ jobs:
 
       - name: Archive Repository
         run: |
-          zip -r ${{ github.workspace }}/archive.zip .
+          zip -r /home/runner/work/deployrepo/deployrepo/archive.zip .
         working-directory: ${{ github.workspace }}
 
       - name: Upload Artifact
