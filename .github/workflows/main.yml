@@ -15,14 +15,14 @@ jobs:
 
       - name: Archive Repository
         run: |
-          zip -r /home/runner/work/deployrepo/deployrepo/archive.zip .
+          zip -r ${{ github.workspace }}/archive.zip .
         working-directory: ${{ github.workspace }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: ${{ github.workspace }}/archive.zip
+          path: zip -r /home/runner/work/deployrepo/deployrepo/archive.zip .
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
