@@ -22,7 +22,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: zip -r /home/runner/work/deployrepo/deployrepo/archive.zip .
+          path: ${{ github.workspace }}/archive.zip
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
