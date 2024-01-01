@@ -23,3 +23,12 @@ jobs:
         with:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ''
+          username: ''
+          password: ''
+          script: |
+            mkdir -p ''
+            unzip -o $GITHUB_WORKSPACE/archive.zip -d ''
