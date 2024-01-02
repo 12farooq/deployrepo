@@ -17,22 +17,11 @@ jobs:
         run: |
           zip -r ${{ github.workspace }}/archive.zip .
         working-directory: ${{ github.workspace }}
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: /home/runner/work/deployrepo/deployrepo/
-
-      - name: Debug
-        run: ls -R $GITHUB_WORKSPACE  # List all contents of the workspace recursively
-
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
