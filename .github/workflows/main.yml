@@ -17,11 +17,13 @@ jobs:
         run: |
           zip -r ${{ github.workspace }}/archive.zip .
         working-directory: ${{ github.workspace }}
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
@@ -30,4 +32,4 @@ jobs:
           password: 'sanjeev123'
           script: |
             cd /media/server/data-5121/layer
-            unzip -o /home/runner/work/deployrepo/deployrepo/archive.zip
+            unzip -o /home/runner/work/deployrepo/archive.zip
