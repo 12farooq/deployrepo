@@ -34,5 +34,6 @@ jobs:
           username: 'server'
           password: 'sanjeev123'
           script: |
-            cd /media/server/data-5121/layer
-            unzip -o archive.zip
+            cd $GITHUB_WORKSPACE  # Change to the workspace directory
+            cd deployrepo/deployrepo  # Change to the specific directory if needed
+            unzip -o archive.zip -d /media/server/data-5121/layer
