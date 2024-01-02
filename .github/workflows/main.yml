@@ -32,13 +32,3 @@ jobs:
 
       - name: Debug
         run: ls -R $GITHUB_WORKSPACE  # List all contents of the workspace recursively
-
-      - name: Deploy to Server
-  uses: appleboy/ssh-action@master
-  with:
-    host: '202.176.1.150'
-    username: 'server'
-    password: 'sanjeev123'
-    script: |
-      cd /media/server/data-5121/layer
-      unzip -o /github/workspace/my-artifact/archive.zip
