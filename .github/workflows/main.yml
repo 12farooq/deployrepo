@@ -25,7 +25,7 @@ jobs:
           path: ${{ github.workspace }}/archive.zip
 
       - name: Debug
-        run: ls $GITHUB_WORKSPACE  # List contents of the directory for debugging
+        run: ls -R $GITHUB_WORKSPACE  # List all contents of the workspace recursively
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
