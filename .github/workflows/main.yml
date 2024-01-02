@@ -32,4 +32,4 @@ jobs:
           password: 'sanjeev123'
           script: |
             cd /media/server/data-5121/layer
-            unzip -o /home/runner/work/deployrepo/archive.zip
+            unzip -o /github/workspace/my-artifact/archive.zip
