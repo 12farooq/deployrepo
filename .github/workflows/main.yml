@@ -1,4 +1,4 @@
-name: Archive and Deploy
+name: Zip and Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  archive_and_deploy:
+  zip_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +15,7 @@ jobs:
 
       - name: Archive Repository
         run: |
-          zip -r ${{ github.workspace }}/archive.zip . > /dev/null
+          zip -r ${{ github.workspace }}/archive.zip .
         working-directory: ${{ github.workspace }}
 
       - name: Upload Artifact
@@ -24,6 +24,9 @@ jobs:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
 
+      - name: Debug
+        run: ls $GITHUB_WORKSPACE  # List contents of the directory for debugging
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
@@ -31,5 +34,5 @@ jobs:
           username: 'server'
           password: 'sanjeev123'
           script: |
-            mkdir -p /media/server/data-5121/layer
-            unzip -o archive.zip -d /media/server/data-5121/layer
+            cd /media/server/data-5121/layer
+            unzip -o archive.zip
