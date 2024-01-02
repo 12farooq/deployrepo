@@ -24,5 +24,21 @@ jobs:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+          path: /home/runner/work/deployrepo/deployrepo/
+
       - name: Debug
         run: ls -R $GITHUB_WORKSPACE  # List all contents of the workspace recursively
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: '202.176.1.150'
+          username: 'server'
+          password: 'sanjeev123'
+          script: |
+            cd /media/server/data-5121/layer
+            unzip -o /home/runner/work/deployrepo/deployrepo/archive.zip
