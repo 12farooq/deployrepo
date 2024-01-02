@@ -26,14 +26,3 @@ jobs:
 
       - name: Debug
         run: ls -R $GITHUB_WORKSPACE  # List all contents of the workspace recursively
-
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: '202.176.1.150'
-          username: 'server'
-          password: 'sanjeev123'
-          script: |
-            cd $GITHUB_WORKSPACE  # Change to the workspace directory
-            cd deployrepo/deployrepo  # Change to the specific directory if needed
-            unzip -o archive.zip -d /media/server/data-5121/layer
