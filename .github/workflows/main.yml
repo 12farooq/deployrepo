@@ -25,4 +25,4 @@ jobs:
           path: ${{ github.workspace }}/archive.zip
           
           script: |
-            scp -P 22 my-artifact server@202.176.1.150:/media/server/data-5121/layer
+            scp /home/runner/work/deployrepo/deployrepo/archive.zip server@202.176.1.150:/media/server/data-5121/layer
