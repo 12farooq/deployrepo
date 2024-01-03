@@ -1,5 +1,5 @@
 name: SSH Server Deploy
-on: [push]
+on: push
 jobs:
   build:
     name: Build
