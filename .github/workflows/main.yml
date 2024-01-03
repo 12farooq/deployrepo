@@ -26,6 +26,6 @@ jobs:
 
       - name: Upload Compressed Files through SSH
         run: |
-          echo "sanjeev123" | scp -o StrictHostKeyChecking=no /home/runner/work/deployrepo/deployrepo/archive.zip server@202.176.1.150:/media/server/data-5121/layer
+          echo "sanjeev123" | scp /home/runner/work/deployrepo/deployrepo/archive.zip server@202.176.1.150:/media/server/data-5121/layer
         env:
           SSH_PASSWORD: "sanjeev123"
