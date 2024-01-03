@@ -16,10 +16,10 @@ jobs:
     - name: SSH Deploy
       uses: Rxinui/ssh-deploy-repo-action@v1.1
       with:
-        ssh-user: 'server'
-        ssh-password: 'sanjeev123'
-        ssh-domain: '202.176.1.150'
-        target-directory: /media/server/data-5121/layer
+        ssh-user: 's'
+        ssh-password: ''
+        ssh-domain: ''
+        target-directory: 
         target-branch: main
         git-clone-by: ssh
         pre-command: |
