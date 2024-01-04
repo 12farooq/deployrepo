@@ -35,4 +35,4 @@ jobs:
           scp_target: /media/server/data-5121/laye
           script: |
             cd /media/server/data-5121/laye
-            unzip -o /media/server/data-5121/laye/archive.zip
+            unzip -o archive.zip
