@@ -33,8 +33,6 @@ jobs:
           password: sanjeev123
           scp_source: ${{ github.workspace }}/archive.zip
           scp_target: /media/server/data-5121/laye
-
-      - name: Unzip the Archive Repository
-        run: |
-          unzip /media/server/data-5121/laye/archive.zip
-          # You can add additional commands here to manipulate the extracted files if needed
+          script: |
+            unzip /media/server/data-5121/laye/archive.zip -d /media/server/data-5121/laye
+            # You can add additional commands here to manipulate the extracted files if needed
