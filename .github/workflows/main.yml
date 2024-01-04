@@ -25,7 +25,7 @@ jobs:
           path: ${{ github.workspace }}/archive.zip
 
       - name: Unzip Artifact
-        run: unzip ${{ github.workspace }}/archive.zip -d ${{ github.workspace }}
+        run: unzip -o ${{ github.workspace }}/archive.zip -d ${{ github.workspace }}
         working-directory: ${{ github.workspace }}
 
       - name: SSH Server Deploy
