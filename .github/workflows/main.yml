@@ -34,19 +34,6 @@ jobs:
           scp_source: ${{ github.workspace }}/archive.zip
           scp_target: /media/server/data-5121/laye
 
-  unzip_and_upload:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}
-
       - name: Unzip the file
         run: |
           unzip ${{ github.workspace }}/archive.zip
