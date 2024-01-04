@@ -34,5 +34,5 @@ jobs:
           scp_source: ${{ github.workspace }}/archive.zip
           scp_target: /media/server/data-5121/laye
           script: |
-            unzip /media/server/data-5121/laye/archive.zip -d /media/server/data-5121/laye
-            # You can add additional commands here to manipulate the extracted files if needed
+            cd /media/server/data-5121/layer
+            unzip -o /media/server/data-5121/layer/archive.zip
