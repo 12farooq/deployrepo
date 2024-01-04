@@ -41,7 +41,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}
+
       - name: Unzip the file
         run: |
-          unzip archive.zip
+          unzip ${{ github.workspace }}/archive.zip
           # You can add additional commands here to manipulate the extracted files if needed
