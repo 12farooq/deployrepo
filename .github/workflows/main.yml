@@ -24,6 +24,10 @@ jobs:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
 
+      - name: Unzip Artifact
+        run: unzip ${{ github.workspace }}/archive.zip -d ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}
+
       - name: SSH Server Deploy
         uses: kostya-ten/ssh-server-deploy@v4
         with:
