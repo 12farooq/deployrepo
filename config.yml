@@ -18,7 +18,7 @@ steps:
     sshEndpoint: 'techpathinternalserver'
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
     targetFolder: '/var/www/dev.techpath.pro/public_html'
-- task: SSH@0
+    - task: SSH@0
   inputs:
     sshEndpoint: 'techpathinternalserver'
     runOptions: 'commands'
