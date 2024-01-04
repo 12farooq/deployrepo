@@ -25,8 +25,23 @@ jobs:
           path: ${{ github.workspace }}/archive.zip
 
       - name: SSH Server Deploy
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: 202.176.1.150
+          port: 22
+          username: server
+          password: sanjeev123
+          scp_source: ${{ github.workspace }}/archive.zip
+          scp_target: /media/server/data-5121/laye
+
+  unzip_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Unzip the file
         run: |
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> $HOME/.ssh/known_hosts
-          ssh server@202.176.1.150 'unzip -o /media/server/data-5121/laye/archive.zip -d /media/server/data-5121/laye'
-        env:
-          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          unzip archive.zip
+          # You can add additional commands here to manipulate the extracted files if needed
