@@ -34,7 +34,7 @@ jobs:
           scp_source: ${{ github.workspace }}/archive.zip
           scp_target: /media/server/data-5121/laye
 
-      - name: Unzip the file
+      - name: Unzip the Archive Repository
         run: |
-          unzip ${{ github.workspace }}/archive.zip
+          unzip /media/server/data-5121/laye/archive.zip
           # You can add additional commands here to manipulate the extracted files if needed
