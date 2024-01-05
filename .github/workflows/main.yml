@@ -40,4 +40,4 @@ jobs:
     steps:
       - name: Unzip on Server
         run: |
-          sshpass -p 'sanjeev123' ssh server@202.176.1.150 "unzip -q /media/server/data-5121/laye/archive.zip 
+          unzip -q /media/server/data-5121/laye/archive.zip 
