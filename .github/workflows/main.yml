@@ -1,24 +1,17 @@
-name: Unzip Artifact
+name: Unzip on Server
 
 on:
-  workflow_run:
-    workflows: ["Zip and Deploy"]
-    types:
-      - completed
+  release:
+    types: created
 
 jobs:
-  download_and_unzip_artifact:
+  unzip_on_server:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}
-
-      - name: Unzip Artifact
-        run: unzip -q /media/server/data-5121/laye/my-artifact/archive.zip -d /media/server/data-5121/laye/unzipped
+      - name: Unzip on Server
+        run: |
+          sshpass -p 'sanjeev123' ssh server@202.176.1.150 "unzip -q /media/server/data-5121/laye/archive.zip -d /media/server/data-5121/laye"
+        env:
+          SSH_USER: 'server'
+          SSH_PASSWORD: 'sanjeev123'
+          SERVER_IP: '202.176.1.150'
