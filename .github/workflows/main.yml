@@ -7,7 +7,7 @@ on:
       - completed
 
 jobs:
-  unzip_artifact:
+  download_and_unzip_artifact:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: my-artifact
-          path: /media/server/data-5121/laye
+          path: ${{ github.workspace }}
 
       - name: Unzip Artifact
-        run: unzip -q /media/server/data-5121/laye/archive.zip 
+        run: unzip -q /media/server/data-5121/laye/my-artifact/archive.zip -d /media/server/data-5121/laye/unzipped
