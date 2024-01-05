@@ -39,7 +39,6 @@ jobs:
     needs: zip_and_deploy
     steps:
       - name: Unzip on Server
-        run: |
-          sshpass -p 'sanjeev123' ssh server@202.176.1.150   
-          cd /media/server/data-5121/laye
-          unzip archive.zip -d /media/server/data-5121/laye
+          script:|
+            cd /media/server/data-5121/laye
+            unzip -q archive.zip -d /media/server/data-5121/laye
