@@ -33,5 +33,5 @@ jobs:
           password: sanjeev123
           scp_source: ${{ github.workspace }}/archive.zip
           scp_target: /media/server/data-5121/laye
-      - name: Unzip archive.zip
-        run: unzip -q /media/server/data-5121/laye/archive.zip
+          name: unzip archive.zip
+            cd /media/server/data-5121/laye/unzip archive.zip
