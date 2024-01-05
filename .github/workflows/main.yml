@@ -39,6 +39,6 @@ jobs:
     needs: zip_and_deploy
     steps:
       - name: Unzip on Server
-          script: |
-            cd /media/server/data-5121/laye
-            unzip archive.zip 
+        run: |
+          cd /media/server/data-5121/laye
+          unzip archive.zip -d /media/server/data-5121/laye
