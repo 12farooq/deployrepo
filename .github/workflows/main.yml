@@ -40,4 +40,4 @@ jobs:
     steps:
       - name: Unzip on Server
         run: |
-          unzip -q /media/server/data-5121/laye/archive.zip 
+          unzip -q /media/server/data-5121/laye 
