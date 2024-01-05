@@ -41,4 +41,4 @@ jobs:
       - name: Unzip on Server
           script:|
             cd /media/server/data-5121/laye
-            unzip -q archive.zip -d /media/server/data-5121/laye
+            unzip archive.zip 
