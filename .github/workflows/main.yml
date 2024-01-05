@@ -40,5 +40,6 @@ jobs:
     steps:
       - name: Unzip on Server
         run: |
-          cd /media/server/data-5121/laye
-          unzip archive.zip -d /media/server/data-5121/laye
+          scp_source: /media/server/data-5121/laye
+          unzip archive.zip 
+          scp_target: /media/server/data-5121/laye  # Update this to the correct directory on the server
