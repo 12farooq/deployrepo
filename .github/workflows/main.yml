@@ -3,63 +3,55 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 14, 16, 18 ]
+        node: [14, 16, 18]
     name: Node ${{ matrix.node }} sample
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+           node-version: ${{ matrix.node }}
       - run: npm ci
       - run: npm test
-name: Zip and Deploy
 
-on:
-  push:
-    branches:
-      - main
+    zip_and_deploy:
+     runs-on: ubuntu-latest
+  needs: build
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Archive Repository
+      run: |
+        zip -r ${{ github.workspace }}/archive.zip .
+         working-directory: ${{ github.workspace }}
 
-jobs:
-  zip_and_deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Archive Repository
-        run: |
-          zip -r ${{ github.workspace }}/archive.zip .
-        working-directory: ${{ github.workspace }}
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
           name: my-artifact
           path: ${{ github.workspace }}/archive.zip
 
-      - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v4
-        with:
-          host: 202.176.1.150
-          port: 22
-          username: server
-          password: sanjeev123
-          scp_source: ${{ github.workspace }}/archive.zip
-          scp_target: /media/server/data-5121/laye  # Update this to the correct directory on the server
+    - name: SSH Server Deploy
+      uses: kostya-ten/ssh-server-deploy@v4
+      with:
+        host: 202.176.1.150
+        port: 22
+        username: server
+        password: sanjeev123
+        scp_source: ${{ github.workspace }}/archive.zip
+        scp_target: /media/server/data-5121/laye  # Update this to the correct directory on the server
 
   unzip_on_server:
-    runs-on: ubuntu-latest
-    needs: zip_and_deploy
-    steps:
-      - name: SSH Unzip on Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: 202.176.1.150
-          username: server
-          password: sanjeev123
-          script: |
-            cd /media/server/data-5121/laye
-            scp server@202.176.1.150:/media/server/data-5121/laye/archive.zip .
+     runs-on: ubuntu-latest
+     needs: zip_and_deploy
+     steps:
+        - name: SSH Unzip on Server
+          uses: appleboy/ssh-action@master
+          with:
+            host: 202.176.1.150 
+            username: server
+            password: sanjeev123
+            script: |
+              cd /media/server/data-5121/laye
+              scp server@202.176.1.150:/media/server/data-5121/laye/archive.zip .
             unzip -q archive.zip -d /media/server/data-5121/laye
