@@ -1,16 +1,36 @@
+name: React Build
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [14, 16, 18]
-    name: Node ${{ matrix.node }} sample
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
-      - run: npm ci
-      - run: npm test
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Archive Build
+        run: |
+          zip -r ${{ github.workspace }}/build.zip build
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: react-app-build
+          path: ${{ github.workspace }}/build.zip
