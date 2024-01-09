@@ -1,36 +1,26 @@
-name: React Build
+trigger:
+- main
 
-on:
-  push:
-    branches:
-      - main
+pool:
+  vmImage: 'ubuntu-latest'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+- job: Build
+  steps:
+  - script: npm install
+    displayName: 'Install Dependencies'
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  - script: npm audit fix --force
+    displayName: 'Fix Security Vulnerabilities'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
+  - script: npm install --save-dev @babel/plugin-proposal-private-property-in-object@1.0.0
+    displayName: 'Add @babel/plugin-proposal-private-property-in-object to devDependencies'
 
-      - name: Install Dependencies
-        run: npm install
+  - script: npm run build
+    displayName: 'Build React App'
 
-      - name: Build React App
-        run: npm run build
-
-      - name: Archive Build
-        run: |
-          zip -r ${{ github.workspace }}/build.zip build
-        working-directory: ${{ github.workspace }}
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: react-app-build
-          path: ${{ github.workspace }}/build.zip
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'build'
+      artifactName: 'react-app'
+    displayName: 'Publish Build Artifacts'
