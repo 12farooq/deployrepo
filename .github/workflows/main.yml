@@ -1,26 +1,32 @@
-trigger:
-- main
+name: Build and Publish
 
-pool:
-  vmImage: 'ubuntu-latest'
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-- job: Build
-  steps:
-  - script: npm install
-    displayName: 'Install Dependencies'
+  build:
+    runs-on: ubuntu-latest
 
-  - script: npm audit fix --force
-    displayName: 'Fix Security Vulnerabilities'
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-  - script: npm install --save-dev @babel/plugin-proposal-private-property-in-object@1.0.0
-    displayName: 'Add @babel/plugin-proposal-private-property-in-object to devDependencies'
+    - name: Install Dependencies
+      run: npm install
 
-  - script: npm run build
-    displayName: 'Build React App'
+    - name: Fix Security Vulnerabilities
+      run: npm audit fix --force
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: 'build'
-      artifactName: 'react-app'
-    displayName: 'Publish Build Artifacts'
+    - name: Add @babel/plugin-proposal-private-property-in-object to devDependencies
+      run: npm install --save-dev @babel/plugin-proposal-private-property-in-object@1.0.0
+
+    - name: Build React App
+      run: npm run build
+
+    - name: Publish Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: react-app
+        path: build
