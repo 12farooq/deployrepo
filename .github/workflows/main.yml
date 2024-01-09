@@ -21,7 +21,7 @@ jobs:
 
     - name: Fix Security Vulnerabilities
       run: npm audit fix --force
-
+           npm update
     - name: Add @babel/plugin-proposal-private-property-in-object to devDependencies
       run: npm install --save-dev @babel/plugin-proposal-private-property-in-object@1.0.0
 
